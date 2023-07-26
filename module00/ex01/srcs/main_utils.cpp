@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 13:14:04 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/26 13:40:05 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:07:03 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ Contact ft_get_contact_from_user(void)
 	/*  -------------------------------------------------------------------	*/
     std::cout << "First name: ";
     std::getline(std::cin, input);
-    while (input.empty())
+    while (!std::cin && input.empty())
     {
-        std::cout << "First name: ";
+        std::cout << "Can't be an empty, try again: ";
         std::getline(std::cin, input);
     }
     contact.set_first_name(input);
@@ -42,9 +42,9 @@ Contact ft_get_contact_from_user(void)
 	/*  -------------------------------------------------------------------	*/
     std::cout << "Last name: ";
     std::getline(std::cin, input);
-    while (input.empty())
+    while (!std::cin && input.empty())
     {
-        std::cout << "Last name: ";
+        std::cout << "Can't be an empty, try again: ";
         std::getline(std::cin, input);
     }
     contact.set_last_name(input);
@@ -54,9 +54,9 @@ Contact ft_get_contact_from_user(void)
 	/*  -------------------------------------------------------------------	*/
     std::cout << "Nickname: ";
     std::getline(std::cin, input);
-    while (input.empty())
+    while (!std::cin && input.empty())
     {
-        std::cout << "Nickname: ";
+        std::cout << "Can't be an empty, try again: ";
         std::getline(std::cin, input);
     }
     contact.set_nickname(input);
@@ -66,9 +66,9 @@ Contact ft_get_contact_from_user(void)
 	/*  -------------------------------------------------------------------	*/
     std::cout << "Phone number: ";
     std::getline(std::cin, input);
-    while (input.empty())
+    while (!std::cin && input.empty())
     {
-        std::cout << "Phone number: ";
+        std::cout << "Can't be an empty, try again: ";
         std::getline(std::cin, input);
     }
     contact.set_phone_number(input);
@@ -78,9 +78,9 @@ Contact ft_get_contact_from_user(void)
 	/*  -------------------------------------------------------------------	*/
     std::cout << "Darkest secret: ";
     std::getline(std::cin, input);
-    while (input.empty())
+    while (!std::cin && input.empty())
     {
-        std::cout << "Darkest secret: ";
+        std::cout << "Can't be an empty, try again: ";
         std::getline(std::cin, input);
     }
     contact.set_darkest_secret(input);
@@ -100,7 +100,7 @@ int	ft_get_index_from_user(int num_contacts)
 	std::getline(std::cin, prompt);
     std::stringstream degree(prompt);
     degree >> index;
-	while (ft_is_allnum(prompt) == false || index < 1 || index > num_contacts)
+	while (!std::cin || ft_is_allnum(prompt) == false || index < 1 || index > num_contacts)
     {
         std::cout << "Enter a proper index... ";
 	    std::getline(std::cin, prompt);
