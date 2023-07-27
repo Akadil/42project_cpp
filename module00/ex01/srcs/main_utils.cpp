@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 13:14:04 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/26 16:07:03 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/26 19:27:45 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ Contact ft_get_contact_from_user(void)
 	/*  -------------------------------------------------------------------	*/
     std::cout << "First name: ";
     std::getline(std::cin, input);
-    while (!std::cin && input.empty())
+    while (!std::cin || input.empty())
     {
         std::cout << "Can't be an empty, try again: ";
         std::getline(std::cin, input);
@@ -42,7 +42,7 @@ Contact ft_get_contact_from_user(void)
 	/*  -------------------------------------------------------------------	*/
     std::cout << "Last name: ";
     std::getline(std::cin, input);
-    while (!std::cin && input.empty())
+    while (!std::cin || input.empty())
     {
         std::cout << "Can't be an empty, try again: ";
         std::getline(std::cin, input);
@@ -54,7 +54,7 @@ Contact ft_get_contact_from_user(void)
 	/*  -------------------------------------------------------------------	*/
     std::cout << "Nickname: ";
     std::getline(std::cin, input);
-    while (!std::cin && input.empty())
+    while (!std::cin || input.empty())
     {
         std::cout << "Can't be an empty, try again: ";
         std::getline(std::cin, input);
@@ -66,7 +66,7 @@ Contact ft_get_contact_from_user(void)
 	/*  -------------------------------------------------------------------	*/
     std::cout << "Phone number: ";
     std::getline(std::cin, input);
-    while (!std::cin && input.empty())
+    while (!std::cin || input.empty())
     {
         std::cout << "Can't be an empty, try again: ";
         std::getline(std::cin, input);
@@ -78,7 +78,7 @@ Contact ft_get_contact_from_user(void)
 	/*  -------------------------------------------------------------------	*/
     std::cout << "Darkest secret: ";
     std::getline(std::cin, input);
-    while (!std::cin && input.empty())
+    while (!std::cin || input.empty())
     {
         std::cout << "Can't be an empty, try again: ";
         std::getline(std::cin, input);

@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:22:07 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/26 18:09:38 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/26 19:30:04 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ bool Account::makeWithdrawal( int withdrawal )
     if (withdrawal > this->_amount)
         return (std::cout << "refused\n", false);
 	else
-		std::cout << withdrawal;
+		std::cout << withdrawal << ";";
 	this->_amount -= withdrawal;
     this->_nbWithdrawals += 1;
 	std::cout << "amount:" << this->_amount << ";";
