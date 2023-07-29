@@ -1,4 +1,4 @@
-NAME			= replace
+NAME			= complain
 
 SRCS			=	main.cpp \
 					classes/Harl.cpp
