@@ -6,27 +6,49 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 23:42:16 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/29 23:42:18 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/30 18:13:36 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include <iostream>
 #include "Fixed.hpp"
+#include "Point.hpp"
+
+bool bsp(Point const a, Point const b, Point const c, Point const point);
 
 int main(void)
 {
-    Fixed a;
-    Fixed const b( Fixed( 5.05f ) * Fixed( 2 ) );
+    Point	a = Point();
+	Point	b(0, 3);
+	Point	c(3, 0);
+	Point	p[3] = {Point(1, 1), Point(1, 2), Point(-0.00001, 0)};
 
-    std::cout << a << std::endl;
-    std::cout << ++a << std::endl;
-    std::cout << a << std::endl;
-    std::cout << a++ << std::endl;
-    std::cout << a << std::endl;
-    std::cout << b << std::endl;
-    std::cout << Fixed::max( a, b ) << std::endl;
-    return 0;
+	for (int i = 0; i < 3; i++)
+	{
+		std::cout << "Point: (" << p[i].getXfloat() << ", " << p[i].getYfloat() << ")";
+		if (bsp(a, b, c, p[i]))
+			std::cout << " is in the triangle\n";
+		else
+			std::cout << " is NOT in the triangle\n";
+	}
+
+    // Point 	a(3, 1);
+	// Point 	b(6, -2);
+	// Point 	c(8, 8);
+	// Point 	inside(5, 2);
+	// Point	outside(4, 5);
+
+	// if (bsp(a, b, c, inside))
+	// 	std::cout << "Point INSIDE triangle" << std::endl;
+	// else
+	// 	std::cout << "Point OUTSIDE triangle" << std::endl;
+
+	// if (bsp(a, b, c, outside))
+	// 	std::cout << "Point INSIDE triangle" << std::endl;
+	// else
+	// 	std::cout << "Point OUTSIDE triangle" << std::endl;
+	return 0;
 }
 
 // int main(void)

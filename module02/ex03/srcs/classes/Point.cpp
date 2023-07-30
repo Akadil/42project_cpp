@@ -6,50 +6,69 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 23:43:24 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/30 00:04:52 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/30 18:08:14 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 #include "Point.hpp"
 
-Point::Point(void)
+/* ------------------------------------------------------------------------- */
+                            /*  Constructors    */
+/* ------------------------------------------------------------------------- */
+
+Point::Point(void): x(0), y(0)
 {
-    std::cout << "Default Point constructor called" << std::endl;
+    // std::cout << "Default Point constructor called" << std::endl;
 }
 
-Point::Point(const Point& copy)
+Point::Point(const Point& copy): x(copy.getX()), y(copy.getY())
 {
-    std::cout << "Copy Point constructor called" << std::endl;
-    *this = copy;
+    // std::cout << "Copy Point constructor called" << std::endl;
 }
 
-Point::Point(float const x, float const y)
+Point::Point(const float x, const float y): x(x), y(y)
 {
-    x(x);
-    y(y);
+    // std::cout << "Float Point constructor called" << std::endl;
 }
 
 Point&	Point::operator = (const Point& point)
 {
-    if (this == &point)
-		return (*this);
-	this->x = point.x;
-	this->y = point.y;
+    (void)point;
+    /*  the const instances can't be changed    */
+    /*  The only option I see is to delete it, and send the new one */
+    /*  But I think it is too dirty */
 	return (*this);
 }
 
-float	Point::getX(void) const
+/* ------------------------------------------------------------------------- */
+                            /*  Class methods   */
+/* ------------------------------------------------------------------------- */
+
+const Fixed	&Point::getX(void) const
+{
+	return (x);
+}
+
+const Fixed	&Point::getY(void) const
+{
+	return (y);
+}
+
+float	Point::getXfloat(void) const
 {
 	return (x.toFloat());
 }
 
-float	Point::getY(void) const
+float	Point::getYfloat(void) const
 {
 	return (y.toFloat());
 }
 
+/* ------------------------------------------------------------------------- */
+                            /*  Destructor  */
+/* ------------------------------------------------------------------------- */
 Point::~Point(void)
 {
-    
+    // std::cout << "Default Point constructor called" << std::endl;
 }

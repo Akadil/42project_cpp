@@ -1,7 +1,9 @@
-NAME			= fixed
+NAME			= bsp
 
 SRCS			=	main.cpp \
-					classes/Fixed.cpp
+					bsp.cpp \
+					classes/Fixed.cpp \
+					classes/Point.cpp \
 
 DIR_SRCS		= srcs
 DIR_BUILD       = .build

@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 23:43:23 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/30 00:04:43 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/07/30 17:48:36 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,20 @@ class Point
         Fixed const y;
         
     public:
+        /*  Constructors    */
         Point(void);
         Point(const Point& copy);
-        Point(float const x, float const y);
+        Point(const float x, const float y);
         ~Point();
+
+        /*  Assignation */
+        /*  It is not a constructor */
         Point&	operator = (const Point& point);
 
-        float	getX(void) const;
-        float	getY(void) const;
+        const Fixed &getX(void) const;
+        const Fixed &getY(void) const;
+        float	    getXfloat(void) const;
+        float	    getYfloat(void) const;
 };
 
 #endif
