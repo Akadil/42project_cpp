@@ -5,11 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/31 12:36:04 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/31 14:18:46 by akalimol         ###   ########.fr       */
+/*   Created: 2023/07/30 22:01:29 by akalimol          #+#    #+#             */
+/*   Updated: 2023/07/31 20:16:27 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef CLAPTRAP_HPP
 # define CLAPTRAP_HPP
@@ -20,32 +19,36 @@
 class ClapTrap
 {
     protected:
+        std::string className;
         std::string name;
-        int         hit;        // The health
+        int         hit;
         int         energy;
         int         power;
 
     public:
         /*  Constructors    */
         ClapTrap(void);
-        ClapTrap(std::string name);
+        ClapTrap(const std::string &name);
         ClapTrap(const ClapTrap& copy);
         ~ClapTrap(void);
 
         ClapTrap&	operator = (const ClapTrap& point);
         
         /*  Class methods   */
-        virtual void    attack(const std::string& target);
-        void    takeDamage(unsigned int amount);
-        void    beRepaired(unsigned int amount);
-        void    displayHealth(void) const;
+        void    attack(const std::string& target);
+        void    takeDamage(const unsigned int amount);
+        void    beRepaired(const unsigned int amount);
+        void    displayHealth(void);
+        void    set_color(void);
+        void    reset_color(void);
 
         /*  Getters and setters */
         std::string getName(void) const;
+        std::string getClassName(void) const;
         int         getHit(void) const;
         int         getEnergy(void) const;
         int         getPower(void) const;
-        void        setPower(int power);
+        void        setPower(const int power);
 };
 
 #endif

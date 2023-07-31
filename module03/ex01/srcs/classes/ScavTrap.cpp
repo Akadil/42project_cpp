@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 14:02:11 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/31 14:26:20 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/08/01 00:09:45 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,43 +18,46 @@
 
 ScavTrap::ScavTrap(void): ClapTrap()
 {
-    std::cout << "ClapTrap default constuctor called" << std::endl;
+    className = "ScavTrap";
     hit = 100;
     energy = 50;
     power = 20;
+    std::cout << className << ": Default constuctor called" << std::endl;
 }
 
-ScavTrap::ScavTrap(std::string name): ClapTrap(name)
+ScavTrap::ScavTrap(const std::string &name): ClapTrap(name)
 {
-    std::cout << "ClapTrap name constuctor called" << std::endl;
+    className = "ScavTrap";
     hit = 100;
     energy = 50;
     power = 20;
+    std::cout << className << ": Name constuctor called" << std::endl;
 }
 
 ScavTrap::ScavTrap(const ScavTrap &copy): ClapTrap()
 {
-    std::cout << "ClapTrap copy constuctor called" << std::endl;
     *this = copy;
+    std::cout << className << ": Copy constuctor called" << std::endl;
 }
 
 ScavTrap    &ScavTrap::operator = (const ScavTrap &scavtrap)
 {
-    std::cout << "ClapTrap assignment operator called" << std::endl;
     if (this != &scavtrap)
     {
         /*  What is the nature of this? */
         this->name = scavtrap.getName();
+        this->className = "ScavTrap";
         this->hit = scavtrap.getHit();
         this->energy = scavtrap.getEnergy();
         this->power = scavtrap.getPower();
     }
+    std::cout << className << ": Assignment operator called" << std::endl;
     return (*this);
 }
 
 ScavTrap::~ScavTrap(void)
 {
-     std::cout << "ClapTrap destructor constuctor called" << std::endl;
+     std::cout << className << ": Destructor constuctor called" << std::endl;
 }
 
 
@@ -64,18 +67,25 @@ ScavTrap::~ScavTrap(void)
 
 void    ScavTrap::attack(const std::string& target)
 {
-    if (hit > 0)
+    set_color();
+    if (hit > 0 && energy != 0)
     {
         std::cout << "ScavTrap: " << name << " attacked " << target;
         std::cout << " with " << power << " power" << std::endl;
+        energy = energy - 1;
     }
-    else
+    else if (hit == 0)
         std::cout << name << "can't attack. He is dead :(" << std::endl;
+    else
+        std::cout << name << "can't attack. No energy :(" << std::endl;
+    reset_color();
 }
 
-void	ScavTrap::guardGate()
+void	ScavTrap::guardGate(void)
 {
-    std::cout << name << " is on the guard gate" << std::endl;
+    set_color();
+    std::cout << className << ": " << name << " is on the guard gate" << std::endl;
+    reset_color();
 }
 
 
