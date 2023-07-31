@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/30 22:28:02 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/31 14:19:12 by akalimol         ###   ########.fr       */
+/*   Created: 2023/07/31 12:15:47 by akalimol          #+#    #+#             */
+/*   Updated: 2023/07/31 14:25:34 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "ClapTrap.hpp"
 
@@ -46,7 +47,6 @@ ClapTrap    &ClapTrap::operator =(const ClapTrap& claptrap)
     return (*this);
 }
 
-
 /* ************************************************************************** */
                             /*  Class methods   */
 /* ************************************************************************** */
@@ -55,7 +55,7 @@ void ClapTrap::attack(const std::string& target)
 {
     if (hit > 0)
     {
-        std::cout << name << " attacked " << target;
+        std::cout << "ClapTrap: " << name << " attacked " << target;
         std::cout << " with " << power << " power" << std::endl;
     }
     else

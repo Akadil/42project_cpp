@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_bit_shifting.cpp                              :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/29 22:45:34 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/31 12:14:46 by akalimol         ###   ########.fr       */
+/*   Created: 2023/07/31 14:27:21 by akalimol          #+#    #+#             */
+/*   Updated: 2023/07/31 14:27:48 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-
-/*  Test:   Check the nature of shifting    */
-
-/*  In nature is something related to bits  */
-/*  But in human language, multiplication by 2 */
+#include "ScavTrap.hpp"
 
 int main(void)
 {
-    int num;
+    ScavTrap robot("Optimus");
 
-    num = 3 << 4;   // 3 * 2^4
-    std::cout << "My num is " << num << std::endl;
-    
-    float   num2;
-    num2 = 1 << 4;   // 3 * 2^4
-    std::cout << "My num2 is " << num2 << std::endl;
-    
+    robot.attack("Enemy");
+    robot.takeDamage(10);
+    robot.beRepaired(5);
+    robot.guardGate();
+	robot.takeDamage(100);
+	robot.beRepaired(5);
+	robot.attack("Enemy");
+	robot.takeDamage(100);
+
     return (0);
 }
