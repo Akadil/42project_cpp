@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 14:02:11 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/31 21:54:59 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/08/02 22:48:35 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 FragTrap::FragTrap(void): ClapTrap()
 {
     className = "FragTrap";
-    hit = 100;
+    hit = 10000000;
     energy = 100;
     power = 30;
     std::cout << className << ": Default constuctor called" << std::endl;
@@ -28,7 +28,7 @@ FragTrap::FragTrap(void): ClapTrap()
 FragTrap::FragTrap(const std::string &name): ClapTrap(name)
 {
     className = "FragTrap";
-    hit = 100;
+    hit = 1000000000;
     energy = 100;
     power = 30;
     std::cout << className << ": Name constuctor called" << std::endl;
