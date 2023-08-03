@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 23:20:21 by akalimol          #+#    #+#             */
-/*   Updated: 2023/08/02 23:23:38 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/08/03 13:49:44 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@
 #include "WrongCat.hpp"
 #include "Dog.hpp"
 #include "Brain.hpp"
+#include "colors.hpp"
 #include <iostream>
 
 int main()
 {
-	std::cout << "\n--------TESTS--------\n";
-	std::cout << "\nTEST FROM SUBJECT:\n";
+	std::cout << BWHT << "\n--------TESTS--------\n";
+	std::cout << "\nTEST FROM SUBJECT:\n" << RESET;
 	{
 		std::cout << "\n//j creation:\n";
 		const Animal* j = new Dog();
@@ -32,8 +33,8 @@ int main()
 		std::cout << "\n//i destruction:\n";
 		delete i;
 	}
-	std::cout << "\n----------------\n";
-	std::cout << "\nANIMAL ARRAY:\n\n";
+	std::cout << BWHT << "\n----------------\n";
+	std::cout << "\nANIMAL ARRAY:\n\n" << RESET;
 	{
 		Animal	*array[4];
 		
@@ -44,8 +45,8 @@ int main()
 		for (int i = 0; i < 4; i++)
 			delete array[i];
 	}
-	std::cout << "\n----------------\n";
-	std::cout << "\nDEEP COPY TEST:\n\n";
+	std::cout << BWHT << "\n----------------\n";
+	std::cout << "\nDEEP COPY TEST:\n\n" << RESET;
 	{
 		std::cout << "\n//a creation:\n";
 		Cat		a;
@@ -55,7 +56,7 @@ int main()
 		Cat		c = a;
 
 		std::cout << "\nA brain:\n";
-		a.setBrain("boop");
+		a.setIdeas("boop");
 		a.printBrain();
 		std::cout << "\n//a assigned to b:\n";
 		b = a;
@@ -63,9 +64,9 @@ int main()
 		b.printBrain();
 		std::cout << "\nC brain:\n";
 		c.printBrain();
-		c.setBrain("c brain");
-		b.setBrain("b brain");
-		a.setBrain("a brain");
+		c.setIdeas("c brain");
+		b.setIdeas("b brain");
+		a.setIdeas("a brain");
 		std::cout << "\nA brain:\n";
 		a.printBrain();
 		std::cout << "\nB brain:\n";
@@ -76,8 +77,8 @@ int main()
 		a.makeSound();
 		b.makeSound();
 	}
-	std::cout << "\n----------------\n";
-	std::cout << "\nGOOD ANIMALS:\n\n";
+	std::cout << BWHT << "\n----------------\n";
+	std::cout << "\nGOOD ANIMALS:\n\n" << RESET;
 	{
 		const Animal* meta = new Animal();
 		const Animal* j = new Dog();
@@ -92,18 +93,18 @@ int main()
 		delete j;
 		delete i;
 	}
-	std::cout << "\n----------------\n";
-	std::cout << "\nWRONG ANIMALS:\n\n";
-	{
-		const WrongAnimal* meta = new WrongAnimal();
-		const WrongAnimal* i = new WrongCat();
+	// std::cout << "\n----------------\n";
+	// std::cout << "\nWRONG ANIMALS:\n\n";
+	// {
+	// 	const WrongAnimal* meta = new WrongAnimal();
+	// 	const WrongAnimal* i = new WrongCat();
 
-		std::cout << i->getType() << " " << std::endl;
-		i->makeSound();
-		meta->makeSound();
-		delete meta;
-		delete i;
-	}
-	std::cout << "\n----------------\n";
+	// 	std::cout << i->getType() << " " << std::endl;
+	// 	i->makeSound();
+	// 	meta->makeSound();
+	// 	delete meta;
+	// 	delete i;
+	// }
+	// std::cout << "\n----------------\n";
 	return 0;
 }

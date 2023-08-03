@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 18:22:36 by akalimol          #+#    #+#             */
-/*   Updated: 2023/08/02 23:19:59 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/08/03 13:40:15 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ Cat &Cat::operator =(const Cat &cat)
     {
         this->type = cat.getType();
         for (int i = 0; i < 100; i++)
-            brain->setIdeas(cat.brain->getIdeas(i), i);
+            brain->setIdeasByIndex(cat.brain->getIdeasByIndex(i), i);
     }
     return (*this);
 }
@@ -65,7 +65,50 @@ void    Cat::makeSound(void) const
     std::cout << "Meow MEEEEEEW Meow" << std::endl;
 }
 
+void    Cat::printBrain(void) const
+{
+    std::cout << "Thoughts: ";
+    for (int i = 0; i < 10; i++)
+    {
+        std::cout << brain->getIdeasByIndex(i);
+        if (i != 9)
+            std::cout << ", ";
+    }
+    std::cout << std::endl;
+}
+
 
 /* ************************************************************************** */
                         /*  Getters and Setters */
 /* ************************************************************************** */
+
+void    Cat::setBrain(Brain *brain)
+{
+    delete this->brain;
+    this->brain = brain;
+}
+
+void    Cat::setIdeas(const std::string &idea)
+{
+    brain->setIdeas(idea);
+}
+
+void    Cat::setIdeasByIndex(const std::string &idea, int i)
+{
+    brain->setIdeasByIndex(idea, i);
+}
+
+const Brain   *Cat::getBrain(void) const
+{
+    return (brain);
+}
+
+std::string Cat::getIdeas(void) const
+{
+    return (brain->getIdeas());
+}
+
+std::string Cat::getIdeasByIndex(int i) const
+{
+    return (brain->getIdeasByIndex(i));
+}

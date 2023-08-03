@@ -3,7 +3,7 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/module04/ex00/includes"
+                "${workspaceFolder}/module04/ex01/includes"
             ],
             "compilerPath": "/usr/bin/clang",
             "cStandard": "c17",

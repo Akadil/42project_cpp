@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 13:21:51 by akalimol          #+#    #+#             */
-/*   Updated: 2023/08/02 23:18:57 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/08/03 13:37:03 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,15 @@ class Cat: public Animal
         ~Cat(void);
 
         void    makeSound(void) const;
+        void    printBrain(void) const;
+
+        /*  Getters and Setters */
+        void    setBrain(Brain *brain);
+        void    setIdeas(const std::string &idea);
+        void    setIdeasByIndex(const std::string &idea, int i);
+        const Brain   *getBrain(void) const;
+        std::string getIdeas(void) const;
+        std::string getIdeasByIndex(int i) const;
 };
 
 #endif 

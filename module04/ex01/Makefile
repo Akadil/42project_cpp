@@ -2,6 +2,7 @@ NAME			= zoo
 
 SRCS			=	main.cpp \
 					classes/Animal.cpp \
+					classes/Brain.cpp \
 					classes/Dog.cpp \
 					classes/Cat.cpp \
 					classes/WrongAnimal.cpp \

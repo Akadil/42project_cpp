@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 23:04:55 by akalimol          #+#    #+#             */
-/*   Updated: 2023/08/02 23:09:20 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/08/03 13:26:43 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,23 @@ Brain::~Brain()
 }
 
 /*  Getters and setters */
-std::string Brain::getIdeas(int i) const {
+std::string Brain::getIdeas(void) const {
+    return (ideas[0]);
+}
+
+std::string Brain::getIdeasByIndex(int i) const {
     if (i < 100)
         return (ideas[i]);
     return (".....");
 }
 
-void        Brain::setIdeas(const std::string &idea, int i)
+void        Brain::setIdeas(const std::string &idea)
+{
+    for (int i = 0; i < 100; i++)
+        ideas[i] = idea;
+}
+
+void        Brain::setIdeasByIndex(const std::string &idea, int i)
 {
     if (i < 100)
         ideas[i] = idea;
