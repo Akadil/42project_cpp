@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 16:08:56 by akalimol          #+#    #+#             */
-/*   Updated: 2023/09/22 16:16:11 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/09/22 20:20:06 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  * 
  * @details If I try to read a line after the end of file, what will happen
  * 
- * @result  The getline() function will throw an exception
+ * @result  Nothing, just nothing. Just emptyness
  */
 int main(void)
 {
