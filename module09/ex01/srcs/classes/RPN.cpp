@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 18:31:46 by akalimol          #+#    #+#             */
-/*   Updated: 2023/09/21 18:51:57 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/09/22 14:52:33 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,7 @@ RPN::~RPN()
  */
 void    RPN::parseExpression(void)
 {
-    std::stack<char*>   reversed_stack;
-    // char    temp[strlen(this->expression) + 1];
-    char    *token;
+    char                *token;
 
     if (!this->is_set)
         throw ExpressionIsNotSetException();
@@ -83,10 +81,10 @@ void    RPN::parseExpression(void)
     while (token != NULL)
     {
         if (is_operator(token)) {
-            reversed_stack.push(token);
+            this->evaluate(token);
         } 
         else if (is_number(token)) {
-            reversed_stack.push(token);
+            this->cont.push(atoi(token));
         } 
         else {
             throw InvalidExpressionExceptionNumber();
@@ -94,83 +92,54 @@ void    RPN::parseExpression(void)
 
         token = strtok(NULL, " ");
     }
-
-    /*  ********************************************************************* */
-                            /*  Reverse the stack    */
-    /*  ********************************************************************* */
-    while (!reversed_stack.empty())
-    {
-        this->cont.push(reversed_stack.top());
-        reversed_stack.pop();
-    }
+    if (this->cont.size() != 1)
+        throw InvalidExpressionExceptionOperator();
 }
 
-void    RPN::evaluate(void)
+void    RPN::evaluate(char    *token)
 {
-    char    *token;
     int     l_num;
     int     r_num;
 
-    if (this->cont.empty())
-        throw EmptyContainerException();
-
-    /*  I feel like this line should be at the end  */
-    // token = this->cont.top();
-    // this->cont.pop();
-    // if (is_number(token))
-    //     this->result = atoi(token);
-    // else
-    //     throw InvalidExpressionException();
-    
-    while (this->cont.size() != 1)
-    {
-        /*  **************************************************************** */
-                            /*  Take the left number    */
-        /*  **************************************************************** */
-        token = this->cont.top();
-        this->cont.pop();
-        if (is_number(token) == false)
-            throw InvalidExpressionExceptionNumber();
-        else
-            l_num = atoi(token);
-        
-        /*  **************************************************************** */
-                            /*  Take the right number   */
-        /*  **************************************************************** */
-        // It is better to check the size here. But it should be ok.
-        token = this->cont.top();
-        this->cont.pop();
-        if (is_number(token) == false)
-            throw InvalidExpressionExceptionNumber();
-        else
-            r_num = atoi(token);
-        
-        if (this->cont.empty())
-            throw NotEnoughOperandsException();
-            
-        /*  **************************************************************** */
-                            /*  Take the operator    */
-        /*  **************************************************************** */
-        token = this->cont.top();
-        this->cont.pop();
-        
-        if (is_operator(token) == false)
-            throw InvalidExpressionExceptionOperator();
-        else if (strcmp(token, "+") == 0)
-            this->result = l_num + r_num;
-        else if (strcmp(token, "-") == 0)
-            this->result = l_num - r_num;
-        else if (strcmp(token, "*") == 0)
-            this->result = l_num * r_num;
-        else if (strcmp(token, "/") == 0 && r_num == 0)
-            throw DivisionByZeroException();
-        else if (strcmp(token, "/") == 0)
-            this->result = l_num / r_num;
-        else
-            throw std::exception();
-        
-        this->cont.push(const_cast<char*>(int_to_string(this->result).c_str()));
+    /*  **************************************************************** */
+                        /*  Take the arguments    */
+    /*  **************************************************************** */
+    /*  Take the left number    */
+    if (this->cont.empty()) {
+        throw NotEnoughOperandsException();
     }
+    else {
+        r_num = this->cont.top();
+        this->cont.pop();
+    }
+    
+    /*  Take the right number   */
+    if (this->cont.empty()) {
+        throw NotEnoughOperandsException();
+    }
+    else {
+        l_num = this->cont.top();
+        this->cont.pop();
+    }
+    
+    /*  **************************************************************** */
+                        /*  Evaluate the expression    */
+    /*  **************************************************************** */
+    if (strcmp(token, "+") == 0)
+        this->result = l_num + r_num;
+    else if (strcmp(token, "-") == 0)
+        this->result = l_num - r_num;
+    else if (strcmp(token, "*") == 0)
+        this->result = l_num * r_num;
+    else if (strcmp(token, "/") == 0 && r_num == 0)
+        throw DivisionByZeroException();
+    else if (strcmp(token, "/") == 0)
+        this->result = l_num / r_num;
+    else
+        throw std::exception();
+    
+    /*  Push back to the stack  */
+    this->cont.push(this->result);
 }
 
 bool    RPN::is_operator(char *token)

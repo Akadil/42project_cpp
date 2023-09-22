@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 12:57:25 by akalimol          #+#    #+#             */
-/*   Updated: 2023/09/21 18:52:19 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/09/22 14:43:03 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int main(int argc, char **argv)
 
     try {
         rpn.parseExpression();
-        rpn.evaluate();
         std::cout << rpn.get_result() << std::endl;
     }
     catch (std::exception &e) {

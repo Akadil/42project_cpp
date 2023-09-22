@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 12:55:22 by akalimol          #+#    #+#             */
-/*   Updated: 2023/09/21 18:31:45 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/09/22 14:48:49 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ class RPN
 {
     private:
         /*  Member Attributes  */
-        std::stack<char*>   cont;
+        std::stack<int>   cont;
         int                 result;
         char                *expression;
 
@@ -59,7 +59,7 @@ class RPN
 
         /*  Member Functions */
         void        parseExpression(void);
-        void        evaluate(void);
+        void        evaluate(char *operand);
 
         /*  Getters and Setters */
         int         get_result(void);
