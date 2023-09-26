@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 19:32:46 by akalimol          #+#    #+#             */
-/*   Updated: 2023/09/25 13:52:55 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/09/25 19:25:59 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void            PmergeMe::mergeSortPairedSequence(void)
     if (this->_sequence_paired.size() <= 1) {
         return;
     }
-    middle = (this->_sequence_paired.size() + 1) / 2;       // This one is wrong, no?
+    middle = (this->_sequence_paired.size() + 1) / 2;
     for (size_t i = 0; i < middle; i++) {
         left.push_back(this->_sequence_paired[i]);
     }
