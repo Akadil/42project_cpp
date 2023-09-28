@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 16:53:21 by akalimol          #+#    #+#             */
-/*   Updated: 2023/09/26 17:51:42 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/09/28 18:21:02 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ class Pair
         T   second;
 
         /*  Constructors and Destructor */
-        Pair(void);             // Default constructor
-        Pair(int const num);    // Default constructor
+        Pair(void);
         Pair(T const &first, T const &second);
         Pair(Pair const & src);
         Pair & operator=(Pair const & rhs);
@@ -40,6 +39,7 @@ class Pair
         /*  Getter and Setter functions */
         void    setFirstNum(int const & first);
         void    setSecondNum(int const & second);
+        void    setIsDefault(bool const & is_default);
         int     getFirstNum(void) const;
         int     getSecondNum(void) const;
         bool    getIsDefault(void) const;
@@ -82,7 +82,7 @@ class Pair<int>
 /*  ************************************************************************ */
 
 template <typename T>
-Pair<T>::Pair(void): _first_num(-1), _second_num(-1), _is_default(true)
+Pair<T>::Pair(void): _is_default(true)
 {
     std::cout << "Default constructor called" << std::endl;
 }

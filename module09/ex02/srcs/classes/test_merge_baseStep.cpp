@@ -6,13 +6,14 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 12:29:08 by akalimol          #+#    #+#             */
-/*   Updated: 2023/09/27 17:48:35 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/09/28 21:57:33 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <vector>
 #include <utility>
+#include <algorithm>
 #include <string>
 #include "MyPair.hpp"
 
@@ -48,6 +49,7 @@ void    fordJohnson_merge_inductive(std::vector<T> &container)
     std::vector< Pair<T> >          paired_container;
     std::vector<T>::iterator        it = container.begin();
     std::vector<T>::iterator        ite = container.end();
+    T                               extra_elem;
 
     if (container.size() <= 1) {
         return;
@@ -56,16 +58,14 @@ void    fordJohnson_merge_inductive(std::vector<T> &container)
     {
         if (it + 1 != ite)
         {
-            if ((*it).getFirstNum() > (*(it + 1)).getFirstNum()) {
+            if ((*it).getFirstNum() < (*(it + 1)).getFirstNum()) {
                 paired_container.push_back(Pair(*it, *(it + 1)));
             } else {
                 paired_container.push_back(Pair(*(it + 1), *it));
             }
         } 
-        else {    // If there are odd number of elements in the container
-            T   extra_elem = T(*it);
-            extra_elem.
-            paired_container.push_back(Pair(extra_elem, extra_elem));
+        else {
+            extra_elem = T(*it, *it);   //  I am not sure aout the formar of it
             break ;
         }
         it += 2;
@@ -81,35 +81,127 @@ void    fordJohnson_merge_inductive(std::vector<T> &container)
     /**
      * @brief Make an insertion sort for the paired container
      */
-    fordJohnson_insert_base(paired_container);
+    fordJohnson_insert_base(paired_container, extra_elem);
+
+    /**
+     * @brief Copy sorted content into original vector
+     */
+    copyFirstElement(container, paired_container);
 }
 
 /**
  * @brief   Insertion sort for the paired container
  * 
  * @attention   As of now I implemented without J. something integration with 2^k - 1
+ * 
+ * @attention   I think for this code I don't have to care about my previous structure
+ *              it is better if I just do the proper one with proper integration
+ * 
+ * @bug         I create the pairs inside of stack of this function which will be garbage
+ *              when I quit the function
+ *              It looks like no. I have no problems with that
  */
 template <typename T>
-void    fordJohnson_insert_base(std::vector<T> container)
+void    fordJohnson_insert_jacobsthal(std::vector<T> &container)
 {
-    size_t  i = container.size();
-    size_t  j = 0;
+    std::vector<T>::iterator it = container.begin();
+    
+    /*  Pointers of the container   */
+    /*  Attention!  It is moving right to left  */
+    std::vector<T>::reverse_iterator    jacob_left = container.rbegin();
+    std::vector<T>::reverse_iterator    jacob_right = container.rbegin();
+    std::vector<T>::reverse_iterator    iter = left;
+    int                                 jacob_order = 1;
 
-    while (i != -1)
+    /*  iterate till no next Jacobsthal number  */
+    while (jacob_right != container.rend())
     {
-        if (container[i] != -1)
+        /*  iterate within jacobsthal sequence*/
+        while (iter != jacob_right || iter == container.rbegin())   // Second cond. to handle base case
         {
-            j = i + 1;
-            while (j != this->_sequence_paired.size() && 
-                 this->_sequence_paired[i].second >= this->_sequence_paired[j].first)
-                j++;
-            std::pair<int, int> new_pair = std::make_pair(this->_sequence_paired[i].second, -1);
-            if (j - 1 == this->_sequence_paired.size())
-                this->_sequence_paired.push_back(new_pair);
-            else
-                this->_sequence_paired.insert(this->_sequence_paired.begin() + j, new_pair);
+            if ((*iter).getIsDefault() == false)
+            {
+                (*iter).setIsDefault(true);
+                (*iter).getSecond().setIsDefault(true);
+                binary_insertion(container, iter.base(), jacob_right.base(), (*iter).getSecond());
+
+            }
+            iter--;
         }
-        i--;
+        
+        /*  Update pointers */  /*  Should be the right one */
+        int jacob_next = generateJacobsthalSequence(jacob_order++);
+
+        jacob_right = jacob_left;
+        if (jacob_next > container.size())
+            jacob_left = container.rend();
+        else
+            jacob_left = container.rbegin() + jacob_next;
     }
+
+
 }
 
+/**
+ * @brief   use a binary search-like approach to insert an element
+ * 
+ * @attention   Not tested yet
+ */
+template <typename T>
+void    binary_insertion( std::vector<T> &container, 
+                            typename std::vector< T >::iterator left, 
+                            typename std::vector< T >::iterator right,
+                            T const &elem )
+{
+    while (left < right) {
+        typename std::vector<T>::iterator mid = left + (std::distance(left, right) / 2);
+
+        if (elem < *mid) {
+            right = mid;
+        } else {
+            left = mid + 1;
+        }
+    }
+    container.insert(left, elem);
+}
+
+int generateJacobsthalSequence(int n)
+{
+    if (n <= 0) {
+        throw std::invalid_argument("Position n must be greater than 0.");
+    }
+
+    if (n == 1) {
+        return 0;
+    }
+
+    unsigned long long prev = 0;
+    unsigned long long curr = 1;
+
+    for (int i = 2; i <= n; ++i) {
+        unsigned long long next = curr + 2 * prev;
+        prev = curr;
+        curr = next;
+    }
+
+    return curr;
+}
+
+/**
+ * @brief   Copy the first element of the paired container into the original container
+ * 
+ * @attention   Not tested yet
+ */
+template <typename T>
+void    copyFirstElement(std::vector<T> &container, std::vector< Pair<T> > &paired_container)
+{
+    std::vector< Pair<T> >::iterator    it = paired_container.begin();
+    std::vector< Pair<T> >::iterator    ite = paired_container.end();
+
+    container.clear();
+    while (it != ite)
+    {
+        container.push_back((*it).left);
+        it++;
+    }
+}
