@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 14:02:11 by akalimol          #+#    #+#             */
-/*   Updated: 2023/08/01 00:09:45 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:19:24 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,21 +65,21 @@ ScavTrap::~ScavTrap(void)
                             /*  Class methods   */
 /* ************************************************************************** */
 
-void    ScavTrap::attack(const std::string& target)
-{
-    set_color();
-    if (hit > 0 && energy != 0)
-    {
-        std::cout << "ScavTrap: " << name << " attacked " << target;
-        std::cout << " with " << power << " power" << std::endl;
-        energy = energy - 1;
-    }
-    else if (hit == 0)
-        std::cout << name << "can't attack. He is dead :(" << std::endl;
-    else
-        std::cout << name << "can't attack. No energy :(" << std::endl;
-    reset_color();
-}
+// void    ScavTrap::attack(const std::string& target)
+// {
+//     set_color();
+//     if (hit > 0 && energy != 0)
+//     {
+//         std::cout << "ScavTrap: " << name << " attacked " << target;
+//         std::cout << " with " << power << " power" << std::endl;
+//         energy = energy - 1;
+//     }
+//     else if (hit == 0)
+//         std::cout << name << "can't attack. He is dead :(" << std::endl;
+//     else
+//         std::cout << name << "can't attack. No energy :(" << std::endl;
+//     reset_color();
+// }
 
 void	ScavTrap::guardGate(void)
 {

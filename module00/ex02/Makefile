@@ -26,7 +26,7 @@ $(DIR_BUILD)			:
 
 clean					:
 			rm -rf $(OBJS)
-			rmdir $(DIR_BUILD)
+			rm -rf $(DIR_BUILD)
 
 fclean					: clean
 			rm -rf ${NAME}

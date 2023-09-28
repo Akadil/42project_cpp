@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 22:01:29 by akalimol          #+#    #+#             */
-/*   Updated: 2023/07/31 20:16:27 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:21:57 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ class ClapTrap
         ClapTrap&	operator = (const ClapTrap& point);
         
         /*  Class methods   */
-        void    attack(const std::string& target);
+        virtual void    attack(const std::string& target);
         void    takeDamage(const unsigned int amount);
         void    beRepaired(const unsigned int amount);
         void    displayHealth(void);

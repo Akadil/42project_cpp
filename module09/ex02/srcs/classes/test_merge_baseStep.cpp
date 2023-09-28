@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 12:29:08 by akalimol          #+#    #+#             */
-/*   Updated: 2023/09/26 17:34:04 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/09/27 17:48:35 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void    fordJohnson_merge_inductive(std::vector<T> &container)
     std::vector< Pair<T> >          paired_container;
     std::vector<T>::iterator        it = container.begin();
     std::vector<T>::iterator        ite = container.end();
-    T                               extra_number = -1;      // It looks like it is not protected
 
     if (container.size() <= 1) {
         return;
@@ -64,7 +63,9 @@ void    fordJohnson_merge_inductive(std::vector<T> &container)
             }
         } 
         else {    // If there are odd number of elements in the container
-            extra_number = *it;
+            T   extra_elem = T(*it);
+            extra_elem.
+            paired_container.push_back(Pair(extra_elem, extra_elem));
             break ;
         }
         it += 2;
@@ -76,11 +77,6 @@ void    fordJohnson_merge_inductive(std::vector<T> &container)
      * If to rely on the recursion, after this step I will have sorted pairs
      */
     fordJohnson_merge_inductive(paired_container);
-
-    // Add the extra number to the sorted sequence
-    if (extra_number != -1) {
-        paired_container.push_back(Pair(extra_number, -1));
-    }
 
     /**
      * @brief Make an insertion sort for the paired container
