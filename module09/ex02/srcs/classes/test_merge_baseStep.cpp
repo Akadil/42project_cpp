@@ -6,228 +6,194 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 12:29:08 by akalimol          #+#    #+#             */
-/*   Updated: 2023/11/11 19:06:51 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/11/12 21:11:28 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-#include <vector>
-#include <utility>
+#include "Grille.hpp"
 #include <algorithm>
+#include <iostream>
 #include <string>
-#include "MyPair.hpp"
+#include <utility>
+#include <vector>
 
-void fordJohnson_merge_base(std::vector<int> container)
-{
-    std::vector<std::pair<int, int> > paired_container;
+size_t generateJacobsthalSequence(int n);
 
-    std::vector<int>::iterator it = container.begin();
-    std::vector<int>::iterator ite = container.end();
-    int extra_number = -1;
+template <typename T>
+void binary_insertion(std::vector< Grille<T> >& container,
+					  typename std::vector<Grille<T> >::iterator left,
+					  typename std::vector<Grille<T> >::iterator right,
+					  T const& elem);
 
-    while (it != ite)
-    {
-        if (it + 1 != ite)
-        {
-            if (*it > *(it + 1))
-            {
-                paired_container.push_back(std::make_pair(*it, *(it + 1)));
-            }
-            else
-            {
-                paired_container.push_back(std::make_pair(*(it + 1), *it));
-            }
-        }
-        else
-        {
-            extra_number = *it;
-            break;
-        }
-        it += 2;
-    }
-}
+template <typename T>
+void fordJohnson_insert(std::vector<T>& container);
+
+template <typename T>
+void migrateWinners(std::vector<T>& container, std::vector<Grille<T> >& paired_container);
+
 
 /**
  * @brief
- *
- * @attention  Work on Pair class construction. I have to set properly the values
- * *****************************************************************************
- * @details If to implement the proper one with no memory allocation, then
- *          I just have to change this snippet:
- *                  paired_container.push_back(Pair(*it, *(it + 1)));
- *          to the function where I am going to swap everything inside of the pair
- *          Very simple one.
  */
 template <typename T>
-void fordJohnson_merge_inductive(std::vector<T> &container)
+void fordJohnson_merge_inductive(std::vector<T>& participants)
 {
-    std::vector<Pair<T> > paired_container;
-    std::vector<T>::iterator it = container.begin();
-    std::vector<T>::iterator ite = container.end();
-    T extra_elem;
+	std::vector<Grille<T> >      winners;
+	typename std::vector<T>::iterator    it = participants.begin();
+	typename std::vector<T>::iterator    ite = participants.end();
+	T                           extra_player;
 
-    if (container.size() <= 1)
-    {
+	if (participants.size() <= 1) 
         return;
-    }
-    while (it != ite)
-    {
-        if (it + 1 != ite)
-        {
-            if ((*it).getFirstNum() < (*(it + 1)).getFirstNum())
-            {
-                paired_container.push_back(Pair(*it, *(it + 1)));
-            }
-            else
-            {
-                paired_container.push_back(Pair(*(it + 1), *it));
-            }
-        }
-        else
-        {
-            extra_elem = T(*it, *it); //  I am not sure aout the formar of it
-            break;
-        }
-        it += 2;
-    }
+    
+	while (it != ite) {
+		if (it + 1 != ite) {
+            winners.push_back(Grille<T>(*it, *(it + 1)));
+		} else {
+			extra_player = T(*it);
+			break;
+		}
+		it += 2;
+	}
 
-    /**
-     * @brief Make a recursion for the smaller container
-     *
-     * If to rely on the recursion, after this step I will have sorted pairs
-     */
-    fordJohnson_merge_inductive(paired_container);
+	/** @brief Make a recursion for the smaller container */
+	fordJohnson_merge_inductive(winners);
 
-    /**
-     * @brief Make an insertion sort for the paired container
-     */
-    fordJohnson_insert_base(paired_container, extra_elem);
+	/** @brief Make an insertion sort for the paired container */
+	fordJohnson_insert(winners);
 
-    /**
-     * @brief Copy sorted content into original vector
-     */
-    copyFirstElement(container, paired_container);
+	/** @brief Copy sorted content into original vector */
+	migrateWinners(participants, winners);
+}
+
+template <>
+void fordJohnson_merge_inductive(std::vector<Grille <int> >& participants)
+{
+	std::vector<Grille< Grille <int> > >      winners;
+	std::vector<Grille <int> >::iterator    it = participants.begin();
+	std::vector<Grille <int> >::iterator    ite = participants.end();
+	Grille <int>                           extra_player;
+
+	if (participants.size() <= 1) 
+        return;
+    
+	while (it != ite) {
+		if (it + 1 != ite) {
+            winners.push_back(Grille<Grille<int> >(*it, *(it + 1)));
+		} else {
+			extra_player = Grille<int>(*it);
+			break;
+		}
+		it += 2;
+	}
+
+	/** @brief Make a recursion for the smaller container */
+	// fordJohnson_merge_inductive(winners, n--);
+
+	/** @brief Make an insertion sort for the paired container */
+	fordJohnson_insert(winners);
+
+	/** @brief Copy sorted content into original vector */
+	migrateWinners(participants, winners);
 }
 
 /**
  * @brief   Insertion sort for the paired container
- *
- * @attention   As of now I implemented without J. something integration with 2^k - 1
- *
- * @attention   I think for this code I don't have to care about my previous structure
- *              it is better if I just do the proper one with proper integration
- *
- * @bug         I create the pairs inside of stack of this function which will be garbage
- *              when I quit the function
- *              It looks like no. I have no problems with that
  */
 template <typename T>
-void fordJohnson_insert_jacobsthal(std::vector<T> &container)
+void fordJohnson_insert(std::vector<T>& container)
 {
-    std::vector<T>::iterator it = container.begin();
+	/*  Pointers of the container   */
+	typename std::vector<T>::reverse_iterator jacob_left = container.rbegin();
+	typename std::vector<T>::reverse_iterator jacob_right = container.rbegin();
+	typename std::vector<T>::reverse_iterator iter = jacob_left;
+	int jacob_order = 1;
 
-    /*  Pointers of the container   */
-    std::vector<T>::reverse_iterator jacob_left = container.rbegin();
-    std::vector<T>::reverse_iterator jacob_right = container.rbegin();
-    std::vector<T>::reverse_iterator iter = jacob_left;
-    int jacob_order = 1;
-
-    /*  iterate till no next Jacobsthal number  */
-    while (jacob_right != container.rend())
-    {
-        /*  iterate within jacobsthal sequence */
-        // At this step iter = jacob_left, so I have to move it to the right
-        while (iter != jacob_right || iter == container.rbegin()) // Second cond. to handle base case
-        {
-            if ((*iter).getIsDefault() == false)
-            {
-                (*iter).setIsDefault(true);
-                (*iter).getSecond().setIsDefault(true);
-                binary_insertion(container, iter.base(), jacob_right.base(), (*iter).getSecond());
-            }
-            iter--;
-        }
-
-        /*  Update pointers */ /*  Should be the right one */
-        int jacob_next = generateJacobsthalSequence(jacob_order++);
-
-        jacob_right = jacob_left;
-        if (jacob_next > container.size())
-            jacob_left = container.rend();
-        else
-            jacob_left = container.rbegin() + jacob_next;
+    if (container.size() == 1) {
+        container.insert()
+        return;
     }
+
+	/*  iterate till no next Jacobsthal number  */
+	while (jacob_right != container.rend()) {
+		/*  iterate within jacobsthal sequence */
+		while (iter != jacob_right || iter == container.rbegin()) // Second cond. to handle base case
+		{
+			if ((*iter).has_pair == true) {
+				(*iter).has_pair = false;
+				binary_insertion(container, iter.base(), jacob_right.base(), (*iter).loserGrille);
+			}
+			iter--;
+		}
+
+		/*  Update pointers */ /*  Should be the right one */
+		size_t jacob_next = generateJacobsthalSequence(jacob_order++);
+
+		jacob_right = jacob_left;
+		if (jacob_next > container.size())
+			jacob_left = container.rend();
+		else
+			jacob_left = container.rbegin() + jacob_next;
+        iter = jacob_left;
+	}
 }
 
 /**
  * @brief   use a binary search-like approach to insert an element
- *
- * @attention   Check for the case when I have to insert at the end
- * @attention   Check for the case when there is only one value
- * @attention   Check how the insert() function works
- * @attention   The pair element has to have comparison operators
- * @attention   Check if the properness of incrementing the iterator
  */
 template <typename T>
-void binary_insertion(std::vector<Pair<T> > &container,
-                      typename std::vector<Pair<T> >::iterator left,
-                      typename std::vector<Pair<T> >::iterator right,
-                      T const &elem)
-{
-    typename std::vector<T>::iterator mid;
+void binary_insertion(std::vector< Grille<T> >& container,
+					  typename std::vector<Grille<T> >::iterator left,
+					  typename std::vector<Grille<T> >::iterator right,
+					  T const& elem) {
+    typename std::vector<Grille<T> >::iterator   mid;
+	Grille<T>                           new_elem = Grille<T>(elem);
 
-    while (left < right)
+	while (left < right) 
     {
-        mid = left + (std::distance(left, right) / 2);
+		mid = left + (std::distance(left, right) / 2);
 
-        if (elem < *mid)
-            right = mid;
-        else
-            left = mid + 1;
-    }
-    container.insert(left, elem);
+		if (new_elem < *mid) {
+			right = mid;
+        } else {
+			left = mid + 1;
+        }
+	}
+	container.insert(left, new_elem);
 }
 
-int generateJacobsthalSequence(int n)
-{
-    if (n <= 0)
-    {
-        throw std::invalid_argument("Position n must be greater than 0.");
-    }
+size_t generateJacobsthalSequence(int n) {
+	if (n <= 0) {
+		throw std::invalid_argument("Position n must be greater than 0.");
+	} else if (n == 1) {
+		return 0;
+	}
 
-    if (n == 1)
-    {
-        return 0;
-    }
+	unsigned long long prev = 0;
+	unsigned long long curr = 1;
 
-    unsigned long long prev = 0;
-    unsigned long long curr = 1;
+	for (int i = 2; i <= n; ++i) {
+		unsigned long long next = curr + 2 * prev;
+		prev = curr;
+		curr = next;
+	}
 
-    for (int i = 2; i <= n; ++i)
-    {
-        unsigned long long next = curr + 2 * prev;
-        prev = curr;
-        curr = next;
-    }
-
-    return curr;
+	return curr;
 }
 
 /**
- * @brief   Copy the first element of the paired container into the original container
- *
- * @attention   Not tested yet
+ * @brief   Copy the first element of the paired container into the original
+ * container
  */
 template <typename T>
-void copyFirstElement(std::vector<T> &container, std::vector<Pair<T> > &paired_container)
+void migrateWinners(std::vector<T>& container, std::vector<Grille<T> >& paired_container)
 {
-    std::vector<Pair<T> >::iterator it = paired_container.begin();
-    std::vector<Pair<T> >::iterator ite = paired_container.end();
+	typename std::vector<Grille<T> >::iterator it = paired_container.begin();
+	typename std::vector<Grille<T> >::iterator ite = paired_container.end();
 
-    container.clear();
-    while (it != ite)
-    {
-        container.push_back((*it).left);
-        it++;
-    }
+	container.clear();
+	while (it != ite) {
+		container.push_back((*it).winnerGrille);
+		it++;
+	}
 }
