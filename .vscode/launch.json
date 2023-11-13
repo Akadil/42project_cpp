@@ -8,10 +8,12 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/module09/ex02/sortMe",
-            "args": ["7 5 2 4 6 8"],
+            "program": "${workspaceFolder}/module09/ex02/a.out",
+            "args": [
+                "7 5 2 4 6 8"
+            ],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}/module09/ex00",
+            "cwd": "${workspaceFolder}/module09/ex02",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
@@ -28,6 +30,5 @@
                 }
             ]
         }
-
     ]
 }

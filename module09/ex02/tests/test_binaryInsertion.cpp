@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 17:24:34 by akalimol          #+#    #+#             */
-/*   Updated: 2023/11/12 18:22:02 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/11/13 19:22:52 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ int main(void)
     /* ********************************************************************** */
     /* Push some elements to the container */
     /* ********************************************************************** */
-    container.push_back(Grille<int>(1, 2));
-    // container.push_back(Grille<int>(3, 4));
+    container.push_back(Grille<int>(9, 10));
+    container.push_back(Grille<int>(7, 8));
     // container.push_back(Grille<int>(5, 6));
-    // container.push_back(Grille<int>(7, 8));
-    // container.push_back(Grille<int>(9, 10));
+    container.push_back(Grille<int>(3, 4));
+    container.push_back(Grille<int>(1, 2));
 
 
     /* ********************************************************************** */
@@ -53,7 +53,7 @@ int main(void)
     /* ********************************************************************** */
     /* Insert an element */
     /* ********************************************************************** */
-    binary_insertion(container, container.begin(), container.end(), 1);
+    binary_insertion(container, container.begin(), container.end(), 11);
     
 
     /* ********************************************************************** */

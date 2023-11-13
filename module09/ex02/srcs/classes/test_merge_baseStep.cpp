@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 12:29:08 by akalimol          #+#    #+#             */
-/*   Updated: 2023/11/12 21:11:28 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/11/13 21:47:17 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 #include <iostream>
 #include <string>
 #include <utility>
-#include <vector>
+#include <vector>  // to store the participants
+#include <typeinfo>	// to check if the extra player is an int
 
 size_t generateJacobsthalSequence(int n);
 
@@ -26,7 +27,7 @@ void binary_insertion(std::vector< Grille<T> >& container,
 					  T const& elem);
 
 template <typename T>
-void fordJohnson_insert(std::vector<T>& container);
+void fordJohnson_insert(std::vector<Grille<T> >& container, T const& extra_player, bool is_extra);
 
 template <typename T>
 void migrateWinners(std::vector<T>& container, std::vector<Grille<T> >& paired_container);
@@ -46,6 +47,7 @@ void fordJohnson_merge_inductive(std::vector<T>& participants)
 	if (participants.size() <= 1) 
         return;
     
+	winners.reserve(participants.size());
 	while (it != ite) {
 		if (it + 1 != ite) {
             winners.push_back(Grille<T>(*it, *(it + 1)));
@@ -60,81 +62,88 @@ void fordJohnson_merge_inductive(std::vector<T>& participants)
 	fordJohnson_merge_inductive(winners);
 
 	/** @brief Make an insertion sort for the paired container */
-	fordJohnson_insert(winners);
+	fordJohnson_insert(winners, extra_player, participants.size() % 2 == 1);
 
 	/** @brief Copy sorted content into original vector */
 	migrateWinners(participants, winners);
 }
 
+// typedef Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<int> > > > > > > > > > > > > lots_players;
+
 template <>
-void fordJohnson_merge_inductive(std::vector<Grille <int> >& participants)
+void fordJohnson_merge_inductive(std::vector<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<int> > > > > > > > > > > > > >& participants)
 {
-	std::vector<Grille< Grille <int> > >      winners;
-	std::vector<Grille <int> >::iterator    it = participants.begin();
-	std::vector<Grille <int> >::iterator    ite = participants.end();
-	Grille <int>                           extra_player;
+	std::vector<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<int> > > > > > > > > > > > > > >      winners;
+	std::vector<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<int> > > > > > > > > > > > > >::iterator    it = participants.begin();
+	std::vector<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<int> > > > > > > > > > > > > >::iterator    ite = participants.end();
+	Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<int> > > > > > > > > > > > >                            extra_player;
 
 	if (participants.size() <= 1) 
         return;
     
+	winners.reserve(participants.size());
 	while (it != ite) {
 		if (it + 1 != ite) {
-            winners.push_back(Grille<Grille<int> >(*it, *(it + 1)));
+            winners.push_back(Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<int> > > > > > > > > > > > > >(*it, *(it + 1)));
 		} else {
-			extra_player = Grille<int>(*it);
+			extra_player = Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<Grille<int> > > > > > > > > > > > > (*it);
 			break;
 		}
 		it += 2;
 	}
 
 	/** @brief Make a recursion for the smaller container */
-	// fordJohnson_merge_inductive(winners, n--);
+	// fordJohnson_merge_inductive(winners);
 
 	/** @brief Make an insertion sort for the paired container */
-	fordJohnson_insert(winners);
+	fordJohnson_insert(winners, extra_player, participants.size() % 2 == 1);
 
 	/** @brief Copy sorted content into original vector */
 	migrateWinners(participants, winners);
 }
 
-/**
- * @brief   Insertion sort for the paired container
- */
 template <typename T>
-void fordJohnson_insert(std::vector<T>& container)
+void fordJohnson_insert(std::vector<Grille <T> >& container, T const& extra_player, bool is_extra)
 {
-	/*  Pointers of the container   */
-	typename std::vector<T>::reverse_iterator jacob_left = container.rbegin();
-	typename std::vector<T>::reverse_iterator jacob_right = container.rbegin();
-	typename std::vector<T>::reverse_iterator iter = jacob_left;
-	int jacob_order = 1;
+	if (container.size() == 0) {
+		return;
+	}
 
-    if (container.size() == 1) {
-        container.insert()
-        return;
-    }
+	/*  Pointers of the Jacobstal sequence   */
+	typename std::vector<Grille<T> >::reverse_iterator	jacob_left = container.rbegin() + 1;
+	typename std::vector<Grille<T> >::reverse_iterator	jacob_right = container.rbegin() + 1;
+	typename std::vector<Grille<T> >::iterator 			iter = container.end() - 1;
+	typename std::vector<Grille<T> >::iterator 			iter_end = container.end();
+	int											jacob_order = 2;
 
 	/*  iterate till no next Jacobsthal number  */
-	while (jacob_right != container.rend()) {
+	while (jacob_right != container.rend() + 1)
+	{
 		/*  iterate within jacobsthal sequence */
-		while (iter != jacob_right || iter == container.rbegin()) // Second cond. to handle base case
+		while (iter != iter_end)
 		{
 			if ((*iter).has_pair == true) {
 				(*iter).has_pair = false;
-				binary_insertion(container, iter.base(), jacob_right.base(), (*iter).loserGrille);
+				binary_insertion(container, iter, container.end(), (*iter).loserGrille);
+				iter_end++;
 			}
-			iter--;
+			iter++;
 		}
 
-		/*  Update pointers */ /*  Should be the right one */
 		size_t jacob_next = generateJacobsthalSequence(jacob_order++);
 
 		jacob_right = jacob_left;
-		if (jacob_next > container.size())
-			jacob_left = container.rend();
-		else
-			jacob_left = container.rbegin() + jacob_next;
-        iter = jacob_left;
+		if (jacob_next - 1 >= container.size()) {
+			jacob_left = container.rend() + 1;
+			iter = container.begin();
+		} else {
+			jacob_left = container.rbegin() + (jacob_next - 1);
+			iter = jacob_left.base();
+		}
+		iter_end = jacob_right.base();
+	}
+	if (is_extra) {
+		binary_insertion(container, container.begin(), container.end(), extra_player);
 	}
 }
 
@@ -153,12 +162,13 @@ void binary_insertion(std::vector< Grille<T> >& container,
     {
 		mid = left + (std::distance(left, right) / 2);
 
-		if (new_elem < *mid) {
+		if (new_elem > *mid) {
 			right = mid;
         } else {
 			left = mid + 1;
         }
 	}
+	// typename std::vector<Grille<T> >::iterator it =  std::upper_bound(left, right, new_elem);
 	container.insert(left, new_elem);
 }
 
@@ -169,6 +179,7 @@ size_t generateJacobsthalSequence(int n) {
 		return 0;
 	}
 
+	n++;
 	unsigned long long prev = 0;
 	unsigned long long curr = 1;
 

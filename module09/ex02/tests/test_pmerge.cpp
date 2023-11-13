@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 18:53:32 by akalimol          #+#    #+#             */
-/*   Updated: 2023/11/12 20:56:53 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/11/13 21:47:58 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,20 @@ int main(void)
     /* Fill the container   */
     /* ********************************************************************** */
     std::cout << "The container:" << std::endl;
-    container.push_back(4);
     container.push_back(2);
-    container.push_back(6);
+    container.push_back(4);
+    container.push_back(12);
     container.push_back(3);
-    // container.push_back(5);
-    // container.push_back(1);
+    container.push_back(9);
+    container.push_back(7);
+    container.push_back(13);
+    container.push_back(11);
+    container.push_back(6);
+    container.push_back(8);
+    container.push_back(5);
+    container.push_back(10);
+    container.push_back(1);
+
 
 
     /* ********************************************************************** */
@@ -59,7 +67,6 @@ int main(void)
     for (std::vector<int>::iterator it = container.begin(); it != container.end(); it++)
         std::cout << *it << " ";
     std::cout << std::endl;
-
 
     return 0;
 }

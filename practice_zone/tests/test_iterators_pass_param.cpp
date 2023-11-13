@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 18:48:37 by akalimol          #+#    #+#             */
-/*   Updated: 2023/11/11 18:54:22 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/11/13 19:10:56 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ int main(void)
 {
     /*  Create some vector  */
     std::vector<int> v;
-    v.push_back(0);
+    v.push_back(5);
     v.push_back(1);
     v.push_back(2);
     v.push_back(3);
     v.push_back(4);
 
     std::cout << "===============================================" << std::endl;
-    std::cout << "Test: The vector is 0, 1, 2, 3, 4" << std::endl;
+    std::cout << "Test: The vector is 5, 1, 2, 3, 4" << std::endl;
     std::cout << "===============================================" << std::endl;
 
     std::vector<int>::iterator it = v.begin();
@@ -60,4 +60,7 @@ void function(std::vector<int>::iterator left, std::vector<int>::iterator right)
     right--;
     std::cout << "left after addition: " << *left << std::endl;
     std::cout << "right after substraction: " << *right << std::endl;
+
+    left = right;
+    std::cout << "left after assignation: " << *left << std::endl;
 }
