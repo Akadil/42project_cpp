@@ -6,12 +6,12 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 18:53:32 by akalimol          #+#    #+#             */
-/*   Updated: 2023/11/13 21:47:58 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/11/14 14:33:51 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Grille.hpp"
-#include "../srcs/classes/test_merge_baseStep.cpp"
+#include "../srcs/classes/test.hpp"
 
 # define NUMBER 6
 
