@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 15:46:26 by akalimol          #+#    #+#             */
-/*   Updated: 2023/09/22 20:11:22 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/11/15 17:42:04 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <sstream>
 #include "BitcoinExchange.hpp"
 #include "utils.hpp"
+#include "colors.hpp"
 
 int main(int argc, char **argv)
 {
@@ -55,6 +56,7 @@ int main(int argc, char **argv)
     }
 
     // Read file
+    std::cout << std::endl;
     while (getline(myfile, line))
     {
         /*  **************************************************************** */
@@ -69,13 +71,13 @@ int main(int argc, char **argv)
         
         // Check date format
         if (is_date(date) == false) {
-            std::cerr << "Error: invalid date format" << std::endl;
+            std::cerr << RED << "Error: invalid date format" << RESET << std::endl;
             continue ;
         }
         
         // Remove first 2 characters of the value (because of the parsing)
         if (value_str.length() <= 2) {
-            std::cerr << "Error: invalid value format" << std::endl;
+            std::cerr << RED << "Error: invalid value format" << RESET << std::endl;
             continue ;
         }
         value_str = value_str.substr(2, value_str.length());
@@ -84,7 +86,7 @@ int main(int argc, char **argv)
         if ((value_str.find(".") != std::string::npos && value_str.find(".") > 4)
                 || (value_str.find(".") == std::string::npos && value_str.length() > 4)
                 || is_value(value_str) == false) {
-            std::cerr << "Error: invalid value format" << std::endl;
+            std::cerr << RED << "Error: invalid value format" << RESET << std::endl;
             continue ;
         }
         double value_dbl = strtod(value_str.c_str(), NULL);
@@ -100,12 +102,13 @@ int main(int argc, char **argv)
             price = exchange.getPrice(date);
         }
         catch (std::exception &e) {
-            std::cerr << "Database: " << e.what() << std::endl;
+            std::cerr << RED << "Database: " << e.what() << RESET << std::endl;
             continue ;
         }
         std::cout << date << " => " << value_str << " = " << value_dbl * price << std::endl;
         // std::cout << "[" << date << "] " << value_str << " " << value_dbl << std::endl;
     }
+    std::cout << std::endl;
 
     return (0);
 }

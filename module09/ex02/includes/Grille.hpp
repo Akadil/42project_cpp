@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 14:02:51 by akalimol          #+#    #+#             */
-/*   Updated: 2023/11/12 20:11:54 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/11/15 12:37:16 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,11 @@
 
 template <typename T>
 class Grille {
-  private:
-	int _winner;
-
-  public:
+  	public:
 	/*  Attributes  */
 	T		winnerGrille;
 	T		loserGrille;
+	int 	_winner;
 	bool	has_pair;
 	bool    is_default;
 

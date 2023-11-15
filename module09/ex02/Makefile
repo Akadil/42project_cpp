@@ -5,7 +5,7 @@ DIR_BUILD       = .build
 DIR_INCLUDES	= includes
 
 SRCS			=	main.cpp \
-					classes/PmergeMe.cpp
+					main_utils.cpp
 
 OBJS			= $(addprefix $(DIR_BUILD)/, $(SRCS))
 OBJS			:= $(OBJS:%.cpp=%.o)

@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 17:58:09 by akalimol          #+#    #+#             */
-/*   Updated: 2023/09/22 20:09:57 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/11/15 17:43:14 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,26 @@
 /*  ************************************************************************* */
 BitcoinExchange::BitcoinExchange(void)
 {
-    std::cout << BLUB << "Default constructor called" << RESET << std::endl;
+    // std::cout << "Default constructor called" << std::endl;
 }
 
 BitcoinExchange::BitcoinExchange(std::string const &filename)
 {
-    std::cout << BLUB << "Parametric constructor called" << RESET << std::endl;
+    // std::cout << "Parametric constructor called" << std::endl;
 
     this->updateData(filename);
 }
 
 BitcoinExchange::BitcoinExchange(BitcoinExchange const &src)
 {
-    std::cout << BLUB << "Copy constructor called" << RESET << std::endl;
+    // std::cout << "Copy constructor called" << std::endl;
 
     *this = src;
 }
 
 BitcoinExchange &BitcoinExchange::operator=(BitcoinExchange const &rhs)
 {
-    std::cout << BLUB << "Assignation operator called" << RESET << std::endl;
+    // std::cout << "Assignation operator called" << std::endl;
 
     if (this != &rhs)
         this->_data = rhs._data;
@@ -46,7 +46,7 @@ BitcoinExchange &BitcoinExchange::operator=(BitcoinExchange const &rhs)
 
 BitcoinExchange::~BitcoinExchange(void)
 {
-    std::cout << BLUB << "Destructor called" << RESET << std::endl;
+    // std::cout << "Destructor called" << std::endl;
 }
 
 

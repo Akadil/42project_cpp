@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 18:57:03 by akalimol          #+#    #+#             */
-/*   Updated: 2023/09/13 19:29:08 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/11/15 16:12:00 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,3 @@ void PresidentialPardonForm::execute(const Bureaucrat& executor) const
     std::cout << executor.getName() << " has been pardoned by Zafod Beeblebrox" << std::endl;
     return;
 }
-

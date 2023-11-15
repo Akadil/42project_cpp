@@ -6,7 +6,7 @@
 /*   By: akalimol <akalimol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 17:05:27 by akalimol          #+#    #+#             */
-/*   Updated: 2023/11/14 16:27:23 by akalimol         ###   ########.fr       */
+/*   Updated: 2023/11/15 17:17:23 by akalimol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <string>
 # include <vector>
 # include <deque>
+# include <cstdlib>
 # include <utility>
 
 class PmergeMe
@@ -34,13 +35,6 @@ class PmergeMe
         /*  Constructors and destructor  */
         PmergeMe(int argc, char **argv);
         PmergeMe & operator=(PmergeMe const & rhs);
-
-
-        /*  Member functions  */
-        void fordJohnson_merge_vector();
-        void fordJohnson_merge_deque();
-
-
 
         /* Errors and exceptions */
         class   EmptySequence: public std::exception
